@@ -1,16 +1,5 @@
 local inspect = {}
 
-local function split(str, ...)
-  local r = {}
-  local sep = ... or '%s'
-
-  for t in string.gmatch(str, "([^"..sep.."]+)") do
-    table.insert(r, t)
-  end
-
-  return r
-end
-
 local function depth(n, ...)
   local c = ... or ' '
   local r = ''
@@ -25,8 +14,6 @@ end
 local function formatType(x)
   if (type(x) == 'string') then
     return '\"'..x..'\"'
-  elseif (type(x) == 'function') then
-    return split(tostring(x))[2]
   else
     return x
   end
