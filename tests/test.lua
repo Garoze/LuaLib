@@ -1,6 +1,6 @@
-local T = require('type')
-local d = require('validation')
-local inspect = require('inspect')
+local T = require('src.interface')
+local d = require('src.validation')
+local inspect = require('src.inspect')
 
 local IPerson = T {
   name = d.string(),
