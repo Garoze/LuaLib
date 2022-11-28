@@ -7,9 +7,11 @@ local IPerson = T {
   address = d.string(),
 }
 
+inspect.print(IPerson)
+
 local person = IPerson {
   name = 'Dev',
   address = 'rua qualquer'
 }
 
-inspect.print(person)
+-- inspect.print(person)
