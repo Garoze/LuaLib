@@ -27,10 +27,17 @@ function inspect.args(f)
     return table.concat(args, ', ');
 end
 
-function inspect.visitor(t, ...)
-  -- assert(t ~= nil, '[inspect.visitor] - Expected a argument on #1 and got \'none\'')
-  -- assert(type(t) == 'table', '[inspect.visitor] - Expected a \'table\' on #1 argument and got '..type(t))
-  
+function inspect.ret(f, ...)
+  local ok, r = pcall(f, ...) 
+  if (ok) then
+    print(r)
+    return type(r) ~= 'nil' and type(r) or 'void'
+  end
+
+  return 'void'
+end
+
+function inspect.visitor(t, ...) 
   local d = ... or 1
   local r = ''
 
@@ -39,7 +46,7 @@ function inspect.visitor(t, ...)
   for key, value in pairs(t) do
     if (type(value) ~= 'table') then
       if (type(value) == 'function') then
-        r = r .. depth(d) .. key .. ': ' .. 'f('.. inspect.args(value) ..') => void,\n'
+        r = r .. depth(d) .. key .. ': ' .. 'f('.. inspect.args(value) ..') => '..inspect.ret(value)..',\n'
       else
         r = r .. depth(d) .. key .. ': ' .. formatType(value) .. ',\n'
       end
